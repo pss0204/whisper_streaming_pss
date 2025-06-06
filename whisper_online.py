@@ -130,7 +130,7 @@ class FasterWhisperASR(ASRBase):
     def transcribe(self, audio, init_prompt=""):
 
         # tested: beam_size=5 is faster and better than 1 (on one 200 second document from En ESIC, min chunk 0.01)
-        segments, info = self.model.transcribe(audio, language=self.original_language, initial_prompt=init_prompt, beam_size=5, word_timestamps=True, condition_on_previous_text=True, **self.transcribe_kargs)
+        segments, info = self.model.transcribe(audio, language=self.original_language, initial_prompt=init_prompt, beam_size=self.beam_size, word_timestamps=True, condition_on_previous_text=True, **self.transcribe_kargs)
         #print(info)  # info contains language detection result
 
         return list(segments)
@@ -964,3 +964,22 @@ if __name__ == "__main__":
 
     o = online.finish()
     output_transcript(o, now=now)
+
+# FasterWhisperASR 클래스를 상속받아 beam_size를 변경 가능하게 만들기
+class CustomFasterWhisperASR(FasterWhisperASR):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.beam_size = 5  # 기본값
+    
+    def transcribe(self, audio, init_prompt=""):
+        segments, info = self.model.transcribe(
+            audio, 
+            language=self.original_language, 
+            initial_prompt=init_prompt, 
+            beam_size=self.beam_size,  # 변경 가능한 값
+            word_timestamps=True, 
+            condition_on_previous_text=True, 
+            **self.transcribe_kargs
+        )
+        return list(segments)
+
