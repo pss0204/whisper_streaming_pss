@@ -7,4 +7,4 @@ from typing import Literal
 @dataclass
 class Config:
     beam_size: int = 1
-    min_chunk_size: float = 10.0
+    min_chunk_size: float = 0.1

@@ -17,7 +17,12 @@ def main():
     # ASR 모델 초기화
     print("Initializing ASR model...")
     asr = init_asr("en", "base")
-    
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--beam_size", type=int, default=Config.beam_size)
+    parser.add_argument("--min_chunk_size", type=float, default=Config.min_chunk_size)
+    args = parser.parse_args()
+
     # EuroSpeech 데이터셋 로드 (UK 설정)
     print("Loading EuroSpeech dataset...")
     dataset = load_dataset("disco-eth/EuroSpeech", "uk", split="train")
