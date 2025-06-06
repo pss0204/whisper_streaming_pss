@@ -21,73 +21,70 @@ def init_asr(language="en", model_size="base"):
     return asr_model
 
 def run_asr(audio_array, config=Config):
-    """오디오 배열에 대해 ASR 실행"""
+    """오디오 배열에 대해 ASR 실행 (실시간 시뮬레이션)"""
     global asr_model
     if asr_model is None:
         raise ValueError("ASR model not initialized. Call init_asr() first.")
     
-    # VACOnlineASRProcessor 사용 (VAD 기능 포함)
-    asr_model.beam_size = config.beam_size  # beam_size 설정
     
     processor = VACOnlineASRProcessor(
-        online_chunk_size=config.min_chunk_size,  # min_chunk_size가 여기서 사용됨
+        online_chunk_size=config.min_chunk_size,
         asr=asr_model,
         tokenizer=None,
         buffer_trimming=("segment", 15)
     )
+
+
+    asr_model.beam_size = config.beam_size
     
     start_time = time.time()
+    audio_start_time = time.time()  # 오디오 시작 시간
     results = []
     word_latencies = []
     
-    # VAC는 더 작은 청크 (0.04초)로 VAD 처리
-    vac_chunk_size = 0.04  # VAD 분석용 작은 청크
+    vac_chunk_size = 0.04
     vac_chunk_samples = int(vac_chunk_size * 16000)
     
-    # VAC 방식으로 스트리밍 시뮬레이션
+    # 실시간 시뮬레이션: 실제 오디오 재생 시간에 맞춰 처리
     for i in range(0, len(audio_array), vac_chunk_samples):
         chunk = audio_array[i:i+vac_chunk_samples]
+        
+        # 현재 오디오 위치의 실제 시간
+        audio_time = i / 16000.0
+        
+        # 실시간 대기: 실제 오디오 재생 시간까지 기다리기
+        elapsed_real_time = time.time() - audio_start_time
+        if audio_time > elapsed_real_time:
+            time.sleep(audio_time - elapsed_real_time)
         
         processor.insert_audio_chunk(chunk)
         result = processor.process_iter()
         
-        current_time = time.time() - start_time
-        # 현재 오디오 진행 시간 (실제 오디오에서의 시간)
+        # 현재 실제 시간과 오디오 진행 시간
+        current_real_time = time.time() - audio_start_time
         audio_progress_time = (i + len(chunk)) / 16000.0
         
-        # 결과가 있으면 저장
         if result and result[0] is not None:
             results.append(result)
             
-            # 확정된 단어들의 레이턴시 계산
-            # result 형식: (beg_timestamp, end_timestamp, "text")
-            word_start_time = result[0]  # 단어/구문의 시작 시간
-            word_end_time = result[1]    # 단어/구문의 끝 시간
+            word_start_time = result[0]
+            word_end_time = result[1]
             
-            # 올바른 레이턴시 계산:
-            # 레이턴시 = (단어가 출력된 시점의 실제 시간) - (단어가 실제 끝난 시점의 실제 시간)
-            # 실시간 스트리밍에서는 단어가 끝난 시점 = 스트리밍 시작 + 오디오 내 단어 끝 시간
             if word_end_time is not None:
-                # 실제 시나리오: 단어가 끝난 시점에 해당하는 실시간 
-                word_actual_end_time = word_end_time  # 오디오 시작 기준
-                # 단어가 출력된 시점에서의 오디오 진행 시간
-                output_time_in_audio = audio_progress_time
-                
-                # 레이턴시 = 출력 시점 - 단어가 실제 끝난 시점
-                latency = output_time_in_audio - word_end_time
+                # 실시간 시뮬레이션에서의 레이턴시 계산
+                # 레이턴시 = 출력된 실제 시간 - 단어가 끝난 오디오 시간
+                latency = current_real_time - word_end_time
                 
                 word_latencies.append(latency)
                 print(f"Word/phrase at {word_start_time:.2f}-{word_end_time:.2f}s, "
-                      f"output when audio at {output_time_in_audio:.2f}s, latency: {latency:.2f}s")  # 디버깅용
+                      f"output at real time {current_real_time:.2f}s, latency: {latency:.2f}s")
     
-    # 마지막 처리
     final_result = processor.finish()
     if final_result and final_result[0] is not None:
         results.append(final_result)
 
-    # 지연시간이 있을 때만 평균 계산
     avg_latency = np.mean(word_latencies) if word_latencies else 0.0
-    beam_size= asr_model.beam_size
+    beam_size = asr_model.beam_size
 
     return results, avg_latency, beam_size
 

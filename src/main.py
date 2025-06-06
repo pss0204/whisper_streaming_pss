@@ -22,6 +22,10 @@ def main():
     parser.add_argument("--beam_size", type=int, default=Config.beam_size)
     parser.add_argument("--min_chunk_size", type=float, default=Config.min_chunk_size)
     args = parser.parse_args()
+    
+    config = Config()
+    config.beam_size = args.beam_size
+    config.min_chunk_size = args.min_chunk_size
 
     # EuroSpeech 데이터셋 로드 (UK 설정)
     print("Loading EuroSpeech dataset...")
@@ -36,7 +40,7 @@ def main():
     dataset_with_pred = dataset.map(
         process_audio_with_asr,
         desc="Running ASR on audio samples",
-        fn_kwargs={"config": Config},
+        fn_kwargs={"config": config},
         load_from_cache_file=False,
     )
     
