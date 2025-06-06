@@ -32,7 +32,7 @@ def main():
     dataset = load_dataset("disco-eth/EuroSpeech", "uk", split="train")
     
     # 데이터셋 크기 제한 (테스트용으로 처음 5개만 사용)
-    dataset = dataset.select(range(min(5, len(dataset))))
+    dataset = dataset.select(range(min(100, len(dataset))))
     
     print(f"Processing {len(dataset)} samples...")
     

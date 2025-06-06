@@ -85,8 +85,9 @@ def run_asr(audio_array, config=Config):
 
     avg_latency = np.mean(word_latencies) if word_latencies else 0.0
     beam_size = asr_model.beam_size
+    min_chunk = config.min_chunk_size
 
-    return results, avg_latency, beam_size
+    return results, avg_latency, beam_size,min_chunk
 
 def process_audio_with_asr(sample,config=Config):
     """dataset.map에서 사용할 함수 - 오디오 전처리 및 ASR 실행"""
@@ -104,7 +105,7 @@ def process_audio_with_asr(sample,config=Config):
         audio_array = np.array(audio_array, dtype=np.float32)
         
         # ASR 실행
-        asr_results, avg_latency, beam_size = run_asr(audio_array, config=config)
+        asr_results, avg_latency, beam_size, min_chunk = run_asr(audio_array, config=config)
 
         # 결과를 텍스트로 변환
         pred_text = ""
@@ -123,6 +124,7 @@ def process_audio_with_asr(sample,config=Config):
         # 기존 샘플에 pred 추가
         sample['pred'] = pred_text
         sample['beam_size'] = beam_size
+        sample['min_chunk'] = min_chunk
 
         wer_value = wer(real_text, pred_text)
         sample['whisper_wer'] = wer_value
