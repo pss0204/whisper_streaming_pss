@@ -40,6 +40,7 @@ def main():
         print(f"  Prediction: {sample['pred']}")
         print(f"  WER: {sample['whisper_wer']}")
         print(f"  Latency: {sample['avg_latency']:.2f} seconds")
+        print(f"  Beam Size: {sample['beam_size']}")
 
     print(f" \n\nAvg_wer: {np.mean([s['whisper_wer'] for s in dataset_with_pred]):.2f}")
     print(f"\n\n Avg_latency: {np.mean([s['avg_latency'] for s in dataset_with_pred]):.2f} seconds")

@@ -16,7 +16,7 @@ def init_asr(language="en", model_size="base"):
     global asr_model
     if asr_model is None:
         asr_model = CustomFasterWhisperASR(language, model_size)
-        asr_model.beam_size = 1
+        asr_model.beam_size = 5
     return asr_model
 
 def run_asr(audio_array, min_chunk_size=1.0):
@@ -84,8 +84,9 @@ def run_asr(audio_array, min_chunk_size=1.0):
 
     # 지연시간이 있을 때만 평균 계산
     avg_latency = np.mean(word_latencies) if word_latencies else 0.0
-    
-    return results, avg_latency
+    beam_size= asr_model.beam_size
+
+    return results, avg_latency, beam_size
 
 def process_audio_with_asr(sample):
     """dataset.map에서 사용할 함수 - 오디오 전처리 및 ASR 실행"""
@@ -103,7 +104,7 @@ def process_audio_with_asr(sample):
         audio_array = np.array(audio_array, dtype=np.float32)
         
         # ASR 실행
-        asr_results, avg_latency = run_asr(audio_array)
+        asr_results, avg_latency, beam_size = run_asr(audio_array, 5.0)
 
         # 결과를 텍스트로 변환
         pred_text = ""
@@ -121,6 +122,7 @@ def process_audio_with_asr(sample):
         
         # 기존 샘플에 pred 추가
         sample['pred'] = pred_text
+        sample['beam_size'] = beam_size
 
         wer_value = wer(real_text, pred_text)
         sample['whisper_wer'] = wer_value
