@@ -7,10 +7,24 @@ import librosa
 import numpy as np
 from datasets import load_dataset
 
+# 전역 ASR 객체
+asr_model = None
 
-def run_asr(audio, asr):
-    asr.beam_size = 1
-    processor = OnlineASRProcessor(asr)
+def init_asr(language="en", model_size="base"):
+    """ASR 모델 초기화"""
+    global asr_model
+    if asr_model is None:
+        asr_model = CustomFasterWhisperASR(language, model_size)
+        asr_model.beam_size = 1
+    return asr_model
+
+def run_asr(audio_array):
+    """오디오 배열에 대해 ASR 실행"""
+    global asr_model
+    if asr_model is None:
+        raise ValueError("ASR model not initialized. Call init_asr() first.")
+    
+    processor = OnlineASRProcessor(asr_model)
     
     # 청크 크기 설정 (초 단위)
     chunk_size_sec = 1.0
@@ -19,8 +33,8 @@ def run_asr(audio, asr):
     results = []
     
     # 스트리밍 시뮬레이션
-    for i in range(0, len(audio), chunk_size_samples):
-        chunk = audio[i:i+chunk_size_samples]
+    for i in range(0, len(audio_array), chunk_size_samples):
+        chunk = audio_array[i:i+chunk_size_samples]
         
         processor.insert_audio_chunk(chunk)
         result = processor.process_iter()
@@ -35,4 +49,41 @@ def run_asr(audio, asr):
         results.append(final_result)
     
     return results
+
+def process_audio_with_asr(sample):
+    """dataset.map에서 사용할 함수 - 오디오 전처리 및 ASR 실행"""
+    try:
+        # 오디오 데이터 추출
+        audio_array = sample['audio']['array']
+        sample_rate = sample['audio']['sampling_rate']
+        
+        # 16kHz로 리샘플링 (whisper 요구사항)
+        if sample_rate != 16000:
+            audio_array = librosa.resample(audio_array, orig_sr=sample_rate, target_sr=16000)
+        
+        # numpy array로 변환
+        audio_array = np.array(audio_array, dtype=np.float32)
+        
+        # ASR 실행
+        asr_results = run_asr(audio_array)
+        
+        # 결과를 텍스트로 변환
+        pred_text = ""
+        if asr_results:
+            # 모든 결과를 합쳐서 하나의 텍스트로 만들기
+            text_parts = []
+            for result in asr_results:
+                if result and len(result) >= 3 and result[2]:
+                    text_parts.append(result[2].strip())
+            pred_text = " ".join(text_parts)
+        
+        # 기존 샘플에 pred 추가
+        sample['pred'] = pred_text
+        return sample
+        
+    except Exception as e:
+        print(f"Error processing audio sample: {e}")
+        # 에러 발생 시 빈 예측 텍스트 반환
+        sample['pred'] = ""
+        return sample
 

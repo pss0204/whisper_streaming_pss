@@ -2,26 +2,45 @@ import sys
 sys.path.append('/home/pss/whisper_streaming')
 
 import soundfile as sf
-
 from whisper_online import *
 import librosa
 import numpy as np
-from run import run_asr
+from datasets import load_dataset
+from run import init_asr, process_audio_with_asr
 
-# ASR 설정
-asr = CustomFasterWhisperASR("en", "base")
+def main():
+    # ASR 모델 초기화
+    print("Initializing ASR model...")
+    asr = init_asr("en", "base")
+    
+    # EuroSpeech 데이터셋 로드 (UK 설정)
+    print("Loading EuroSpeech dataset...")
+    dataset = load_dataset("disco-eth/EuroSpeech", "uk", split="train")
+    
+    # 데이터셋 크기 제한 (테스트용으로 처음 5개만 사용)
+    dataset = dataset.select(range(min(5, len(dataset))))
+    
+    print(f"Processing {len(dataset)} samples...")
+    
+    # dataset.map을 사용하여 ASR 적용
+    dataset_with_pred = dataset.map(
+        process_audio_with_asr,
+        desc="Running ASR on audio samples"
+    )
+    
+    # 결과 출력
+    print("\n=== ASR Results ===")
+    for i, sample in enumerate(dataset_with_pred):
+        print(f"\nSample {i+1}:")
+        if 'text' in sample:
+            print(f"  Ground Truth: {sample['text']}")
+        print(f"  Prediction: {sample['pred']}")
+    
+    # 데이터셋 정보 출력
+    print(f"\nDataset columns: {dataset_with_pred.column_names}")
+    print(f"Dataset size: {len(dataset_with_pred)}")
 
-# 오디오 파일 로드
-audio_file = "/home/pss/whisper_streaming/harvard.wav"
-audio, sr = librosa.load(audio_file, sr=16000, mono=True)
-
-# ASR 실행
-results = run_asr(audio, asr)
-
-# 결과 출력
-for result in results:
-    if result[0] is not None:
-        start, end, text = result
-        print(f"{start:.2f}-{end:.2f}: {text}")
+if __name__ == "__main__":
+    main()
         
         
