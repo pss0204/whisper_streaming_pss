@@ -7,6 +7,7 @@ import librosa
 import numpy as np
 from datasets import load_dataset
 from jiwer import wer
+from src.config import Config
 
 # 전역 ASR 객체
 asr_model = None
@@ -16,18 +17,20 @@ def init_asr(language="en", model_size="base"):
     global asr_model
     if asr_model is None:
         asr_model = CustomFasterWhisperASR(language, model_size)
-        asr_model.beam_size = 5
+        #asr_model.beam_size = 5
     return asr_model
 
-def run_asr(audio_array, min_chunk_size=1.0):
+def run_asr(audio_array, config=Config):
     """오디오 배열에 대해 ASR 실행"""
     global asr_model
     if asr_model is None:
         raise ValueError("ASR model not initialized. Call init_asr() first.")
     
     # VACOnlineASRProcessor 사용 (VAD 기능 포함)
+    asr_model.beam_size = config.beam_size  # beam_size 설정
+    
     processor = VACOnlineASRProcessor(
-        online_chunk_size=min_chunk_size,  # min_chunk_size가 여기서 사용됨
+        online_chunk_size=config.min_chunk_size,  # min_chunk_size가 여기서 사용됨
         asr=asr_model,
         tokenizer=None,
         buffer_trimming=("segment", 15)
@@ -88,7 +91,7 @@ def run_asr(audio_array, min_chunk_size=1.0):
 
     return results, avg_latency, beam_size
 
-def process_audio_with_asr(sample):
+def process_audio_with_asr(sample,config=Config):
     """dataset.map에서 사용할 함수 - 오디오 전처리 및 ASR 실행"""
     print(f"Processing sample...")  # 디버깅 출력 추가
     try:
@@ -104,7 +107,7 @@ def process_audio_with_asr(sample):
         audio_array = np.array(audio_array, dtype=np.float32)
         
         # ASR 실행
-        asr_results, avg_latency, beam_size = run_asr(audio_array, 1.0)
+        asr_results, avg_latency, beam_size = run_asr(audio_array, config=config)
 
         # 결과를 텍스트로 변환
         pred_text = ""

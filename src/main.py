@@ -10,6 +10,8 @@ from run import init_asr, process_audio_with_asr
 import json
 import os
 from datetime import datetime
+from src.config import Config
+import argparse
 
 def main():
     # ASR 모델 초기화
@@ -29,6 +31,7 @@ def main():
     dataset_with_pred = dataset.map(
         process_audio_with_asr,
         desc="Running ASR on audio samples",
+        fn_kwargs={"config": Config},
         load_from_cache_file=False,
     )
     

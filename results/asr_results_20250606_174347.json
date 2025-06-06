@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "timestamp": "2025-06-06T17:43:47.487586",
+    "dataset_size": 5,
+    "model_info": {
+      "language": "en",
+      "model_size": "base"
+    }
+  },
+  "samples": [],
+  "summary": {
+    "avg_wer": 0.3591,
+    "Latency_list": [
+      1.5195555555555555,
+      1.5409999999999997,
+      1.6653333333333336,
+      1.476,
+      1.2040000000000002
+    ],
+    "avg_latency": 1.4812,
+    "avg_beam_size": 5.0,
+    "total_samples": 5,
+    "Beam_size_list": [
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+  }
+}
