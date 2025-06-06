@@ -6,6 +6,7 @@ from whisper_online import *
 import librosa
 import numpy as np
 from datasets import load_dataset
+from jiwer import wer
 
 # 전역 ASR 객체
 asr_model = None
@@ -52,6 +53,7 @@ def run_asr(audio_array):
 
 def process_audio_with_asr(sample):
     """dataset.map에서 사용할 함수 - 오디오 전처리 및 ASR 실행"""
+    print(f"Processing sample...")  # 디버깅 출력 추가
     try:
         # 오디오 데이터 추출
         audio_array = sample['audio']['array']
@@ -76,14 +78,24 @@ def process_audio_with_asr(sample):
                 if result and len(result) >= 3 and result[2]:
                     text_parts.append(result[2].strip())
             pred_text = " ".join(text_parts)
+
+        # 실제 텍스트 (ground truth) 추출
+        real_text = sample["human_transcript"] 
         
         # 기존 샘플에 pred 추가
         sample['pred'] = pred_text
+
+        wer_value = wer(real_text, pred_text)
+        sample['whisper_wer'] = wer_value
+        
         return sample
         
     except Exception as e:
         print(f"Error processing audio sample: {e}")
-        # 에러 발생 시 빈 예측 텍스트 반환
+        import traceback
+        traceback.print_exc()  # 전체 스택 트레이스 출력
+        # 에러 발생 시 빈 예측 텍스트와 기본 WER 반환
         sample['pred'] = ""
+        sample['whisper_wer'] = 1.0  # 최대 WER 값
         return sample
 

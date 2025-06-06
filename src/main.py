@@ -25,22 +25,25 @@ def main():
     # dataset.map을 사용하여 ASR 적용
     dataset_with_pred = dataset.map(
         process_audio_with_asr,
-        desc="Running ASR on audio samples"
+        desc="Running ASR on audio samples",
+        load_from_cache_file=False,
     )
-    
-    # 결과 출력
-    print("\n=== ASR Results ===")
-    for i, sample in enumerate(dataset_with_pred):
-        print(f"\nSample {i+1}:")
-        if 'text' in sample:
-            print(f"  Ground Truth: {sample['text']}")
-        print(f"  Prediction: {sample['pred']}")
     
     # 데이터셋 정보 출력
     print(f"\nDataset columns: {dataset_with_pred.column_names}")
     print(f"Dataset size: {len(dataset_with_pred)}")
+    # 결과 출력
+    print("\n=== ASR Results ===")
+    for i, sample in enumerate(dataset_with_pred):
+        print(f"\nSample {i+1}:")
+        print(f"  Ground Truth: {sample['human_transcript']}")
+        print(f"  Prediction: {sample['pred']}")
+        print(f"  WER: {sample['whisper_wer']}")
+
+    print(f" \n\nAvg_wer: {np.mean([s['whisper_wer'] for s in dataset_with_pred]):.2f}")
+    
+
 
 if __name__ == "__main__":
     main()
-        
-        
+
