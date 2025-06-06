@@ -104,7 +104,7 @@ def process_audio_with_asr(sample):
         audio_array = np.array(audio_array, dtype=np.float32)
         
         # ASR 실행
-        asr_results, avg_latency, beam_size = run_asr(audio_array, 5.0)
+        asr_results, avg_latency, beam_size = run_asr(audio_array, 1.0)
 
         # 결과를 텍스트로 변환
         pred_text = ""
