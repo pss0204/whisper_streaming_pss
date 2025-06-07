@@ -22,7 +22,7 @@
 python whisper_online.py ted_16k_mono.wav \
     --language en \
     --min-chunk-size 1.0 \
-    --buffer_trimming sentence \
+    --buffer_trimming segment \
     --buffer_trimming_sec 30 \
     > out.txt
 

@@ -1023,8 +1023,10 @@ if __name__ == "__main__":
             else:
                 end += min_chunk
         now = duration
-
+    
+    
     else: # online = simultaneous mode
+        latencies = []
         end = 0
         while True:
             now = time.time() - start
@@ -1043,11 +1045,15 @@ if __name__ == "__main__":
             else:
                 output_transcript(o)
             now = time.time() - start
+            latency = now - end
+            latencies.append(latency)
             logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, the latency is {now-end:.2f}")
 
             if end >= duration:
                 break
         now = None
+        np.mean(latencies)
+        logger.info(f"Average latency: {np.mean(latencies):.2f} seconds")
 
     o = online.finish()
     output_transcript(o, now=now)
