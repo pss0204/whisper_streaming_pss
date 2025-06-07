@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
+"""
+Whisper Online Streaming ASR
+
+Usage examples:
+- With audio file: python whisper_online.py audio.wav
+- With HuggingFace dataset: python whisper_online.py "dataset:disco-eth/EuroSpeech:uk:train:0"
+
+Dataset identifier format: "dataset:repo_name:config:split:index"
+e.g., "dataset:disco-eth/EuroSpeech:uk:train:0" loads the first sample from Ukrainian EuroSpeech training set
+"""
 import sys
 import numpy as np
 import librosa
 from functools import lru_cache
 import time
 import logging
+import argparse
 
 import io
 import soundfile as sf
@@ -14,14 +25,85 @@ logger = logging.getLogger(__name__)
 
 @lru_cache(10**6)
 def load_audio(fname):
+    # Check if fname is a dataset identifier
+    if fname.startswith("dataset:"):
+        return load_audio_from_dataset(fname)
+    # Regular file loading
     a, _ = librosa.load(fname, sr=16000, dtype=np.float32)
     return a
+
+def load_audio_from_dataset(dataset_identifier):
+    """Load audio from HuggingFace dataset
+    dataset_identifier format: "dataset:disco-eth/EuroSpeech:uk:train:0"
+    where 0 is the index of the sample to load
+    """
+    try:
+        from datasets import load_dataset
+        
+        parts = dataset_identifier.split(":")
+        if len(parts) < 5:
+            raise ValueError("Dataset identifier should be in format 'dataset:repo:config:split:index'")
+        
+        _, repo, config, split, index = parts
+        index = int(index)
+        
+        logger.info(f"Loading dataset {repo}, config {config}, split {split}, index {index}")
+        dataset = load_dataset(repo, config, split=split)
+        #샘플수 조정
+        dataset = dataset.select(range(min(100, len(dataset))))
+        sample = dataset[index]
+        
+        # Get audio data and sample rate
+        audio_data = sample['audio']['array']
+        sample_rate = sample['audio']['sampling_rate']
+        
+        logger.debug(f"Original sample rate: {sample_rate}, audio length: {len(audio_data)} samples")
+        
+        # Resample to 16kHz if needed
+        if sample_rate != 16000:
+            audio_data = librosa.resample(audio_data, orig_sr=sample_rate, target_sr=16000)
+            logger.debug(f"Resampled to 16kHz, new length: {len(audio_data)} samples")
+        
+        return audio_data.astype(np.float32)
+        
+    except ImportError:
+        logger.error("Failed to import 'datasets' library. Please install it with: pip install datasets")
+        raise
+    except Exception as e:
+        logger.error(f"Failed to load audio from dataset: {e}")
+        raise
 
 def load_audio_chunk(fname, beg, end):
     audio = load_audio(fname)
     beg_s = int(beg*16000)
     end_s = int(end*16000)
     return audio[beg_s:end_s]
+
+def get_dataset_duration(dataset_identifier):
+    """Get duration of audio sample from dataset in seconds"""
+    try:
+        from datasets import load_dataset
+        
+        parts = dataset_identifier.split(":")
+        if len(parts) < 5:
+            raise ValueError("Dataset identifier should be in format 'dataset:repo:config:split:index'")
+        
+        _, repo, config, split, index = parts
+        index = int(index)
+        
+        dataset = load_dataset(repo, config, split=split)
+        sample = dataset[index]
+        
+        # Get audio duration
+        audio_data = sample['audio']['array']
+        sample_rate = sample['audio']['sampling_rate']
+        
+        duration = len(audio_data) / sample_rate
+        return duration
+        
+    except Exception as e:
+        logger.error(f"Failed to get duration from dataset: {e}")
+        raise
 
 
 # Whisper backend
@@ -130,7 +212,7 @@ class FasterWhisperASR(ASRBase):
     def transcribe(self, audio, init_prompt=""):
 
         # tested: beam_size=5 is faster and better than 1 (on one 200 second document from En ESIC, min chunk 0.01)
-        segments, info = self.model.transcribe(audio, language=self.original_language, initial_prompt=init_prompt, beam_size=self.beam_size, word_timestamps=True, condition_on_previous_text=True, **self.transcribe_kargs)
+        segments, info = self.model.transcribe(audio, language=self.original_language, initial_prompt=init_prompt, beam_size=5, word_timestamps=True, condition_on_previous_text=True, **self.transcribe_kargs)
         #print(info)  # info contains language detection result
 
         return list(segments)
@@ -841,9 +923,8 @@ def set_logging(args,logger,other="_server"):
 
 if __name__ == "__main__":
 
-    import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('audio_path', type=str, help="Filename of 16kHz mono channel wav, on which live streaming is simulated.")
+    parser.add_argument('audio_path', type=str, help="Filename of 16kHz mono channel wav, on which live streaming is simulated. Or dataset identifier in format 'dataset:repo:config:split:index' (e.g., 'dataset:disco-eth/EuroSpeech:uk:train:0').")
     add_shared_args(parser)
     parser.add_argument('--start_at', type=float, default=0.0, help='Start processing audio at this time.')
     parser.add_argument('--offline', action="store_true", default=False, help='Offline mode.')
@@ -867,7 +948,13 @@ if __name__ == "__main__":
     audio_path = args.audio_path
 
     SAMPLING_RATE = 16000
-    duration = len(load_audio(audio_path))/SAMPLING_RATE
+    
+    # Calculate duration - support both files and dataset
+    if audio_path.startswith("dataset:"):
+        duration = get_dataset_duration(audio_path)
+    else:
+        duration = len(load_audio(audio_path))/SAMPLING_RATE
+    
     logger.info("Audio duration is: %2.2f seconds" % duration)
 
     asr, online = asr_factory(args, logfile=logfile)
