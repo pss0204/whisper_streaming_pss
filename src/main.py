@@ -32,7 +32,7 @@ def main():
     dataset = load_dataset("disco-eth/EuroSpeech", "uk", split="train")
     
     # 데이터셋 크기 제한 (테스트용으로 처음 5개만 사용)
-    dataset = dataset.select(range(min(100, len(dataset))))
+    dataset = dataset.select(range(min(5, len(dataset))))
     
     print(f"Processing {len(dataset)} samples...")
     
@@ -94,6 +94,7 @@ def main():
         Beam_sizes.append(s['beam_size'])
         Latencies.append(s['avg_latency'])
     avg_beam_size = np.mean(Beam_sizes)
+    avg_min_chunk = np.mean([s['min_chunk'] for s in dataset_with_pred])
 
     print(f" \n\nAvg_wer: {avg_wer:.2f}")
     print(f"\n\n Avg_latency: {avg_latency:.2f} seconds")
@@ -105,6 +106,7 @@ def main():
         "avg_latency": round(avg_latency, 4),
         "avg_beam_size": round(avg_beam_size, 4),
         "total_samples": len(dataset_with_pred),
+        "min_chunk_size": round(avg_min_chunk, 4),
         "Beam_size_list": Beam_sizes
     }
     

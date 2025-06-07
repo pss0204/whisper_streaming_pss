@@ -12,7 +12,7 @@ from src.config import Config
 # 전역 ASR 객체
 asr_model = None
 
-def init_asr(language="en", model_size="base"):
+def init_asr(language="en", model_size="large-v2"):
     """ASR 모델 초기화"""
     global asr_model
     if asr_model is None:
@@ -26,68 +26,92 @@ def run_asr(audio_array, config=Config):
     if asr_model is None:
         raise ValueError("ASR model not initialized. Call init_asr() first.")
     
-    
-    processor = VACOnlineASRProcessor(
-        online_chunk_size=config.min_chunk_size,
+    processor = OnlineASRProcessor(
         asr=asr_model,
         tokenizer=None,
-        buffer_trimming=("segment", 15)
+        buffer_trimming=("sentence", 30)
     )
-
 
     asr_model.beam_size = config.beam_size
     
+    # whisper_online.py 스타일의 처리 루프 적용
     start_time = time.time()
-    audio_start_time = time.time()  # 오디오 시작 시간
     results = []
     word_latencies = []
     
-    vac_chunk_size = 0.04
-    vac_chunk_samples = int(vac_chunk_size * 16000)
+    # min_chunk_size 사용 (config에서 가져옴)
+    min_chunk = config.min_chunk_size
     
-    # 실시간 시뮬레이션: 실제 오디오 재생 시간에 맞춰 처리
-    for i in range(0, len(audio_array), vac_chunk_samples):
-        chunk = audio_array[i:i+vac_chunk_samples]
+    # 오디오를 메모리에서 시뮬레이션하기 위한 설정
+    total_duration = len(audio_array) / 16000.0
+    beg = 0.0  # 시작 시간 (초)
+    end = 0.0  # 종료 시간 (초)
+    
+    # whisper_online.py의 핵심 처리 루프 적용
+    while end < total_duration:
+        now = time.time() - start_time
         
-        # 현재 오디오 위치의 실제 시간
-        audio_time = i / 16000.0
+        # min_chunk만큼 대기 (실시간 시뮬레이션)
+        if now < end + min_chunk:
+            time.sleep(min_chunk + end - now)
         
-        # 실시간 대기: 실제 오디오 재생 시간까지 기다리기
-        elapsed_real_time = time.time() - audio_start_time
-        if audio_time > elapsed_real_time:
-            time.sleep(audio_time - elapsed_real_time)
+        # 새로운 end 시간 계산
+        end = time.time() - start_time
+        if end > total_duration:
+            end = total_duration
         
-        processor.insert_audio_chunk(chunk)
-        result = processor.process_iter()
+        # 오디오 청크 로드 (beg부터 end까지)
+        beg_samples = int(beg * 16000)
+        end_samples = int(end * 16000)
         
-        # 현재 실제 시간과 오디오 진행 시간
-        current_real_time = time.time() - audio_start_time
-        audio_progress_time = (i + len(chunk)) / 16000.0
-        
-        if result and result[0] is not None:
-            results.append(result)
+        if end_samples > len(audio_array):
+            end_samples = len(audio_array)
             
-            word_start_time = result[0]
-            word_end_time = result[1]
+        chunk = audio_array[beg_samples:end_samples]
+        
+        if len(chunk) > 0:
+            # 청크 삽입
+            processor.insert_audio_chunk(chunk)
             
-            if word_end_time is not None:
-                # 실시간 시뮬레이션에서의 레이턴시 계산
-                # 레이턴시 = 출력된 실제 시간 - 단어가 끝난 오디오 시간
-                latency = current_real_time - word_end_time
+            try:
+                # ASR 처리
+                result = processor.process_iter()
                 
-                word_latencies.append(latency)
-                print(f"Word/phrase at {word_start_time:.2f}-{word_end_time:.2f}s, "
-                      f"output at real time {current_real_time:.2f}s, latency: {latency:.2f}s")
+                # 결과 처리
+                current_real_time = time.time() - start_time
+                
+                if result and result[0] is not None:
+                    results.append(result)
+                    
+                    word_start_time = result[0]
+                    word_end_time = result[1]
+                    
+                    if word_end_time is not None:
+                        # 레이턴시 계산
+                        latency = current_real_time - word_end_time
+                        word_latencies.append(latency)
+                        print(f"Word/phrase at {word_start_time:.2f}-{word_end_time:.2f}s, "
+                              f"output at real time {current_real_time:.2f}s, latency: {latency:.2f}s")
+                        
+            except AssertionError as e:
+                print(f"Assertion error: {e}")
+        
+        # 다음 반복을 위한 beg 업데이트
+        beg = end
+        
+        # 무한 루프 방지
+        if beg >= total_duration:
+            break
     
+    # 마지막 결과 처리
     final_result = processor.finish()
     if final_result and final_result[0] is not None:
         results.append(final_result)
 
     avg_latency = np.mean(word_latencies) if word_latencies else 0.0
     beam_size = asr_model.beam_size
-    min_chunk = config.min_chunk_size
 
-    return results, avg_latency, beam_size,min_chunk
+    return results, avg_latency, beam_size, min_chunk
 
 def process_audio_with_asr(sample,config=Config):
     """dataset.map에서 사용할 함수 - 오디오 전처리 및 ASR 실행"""
