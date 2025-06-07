@@ -17,7 +17,16 @@ def init_asr(language="en", model_size="large-v2"):
     global asr_model
     if asr_model is None:
         asr_model = CustomFasterWhisperASR(language, model_size)
-        #asr_model.beam_size = 5
+        # 모델 정보 확인 - 올바른 속성 사용
+        print(f"✅ Model loaded: {model_size}")
+        try:
+            # faster-whisper의 경우 model_size_or_path 대신 다른 방식으로 접근
+            print(f"✅ Device: {asr_model.model.device}")
+            print(f"✅ Compute type: {asr_model.model.compute_type}")
+            # model_size_or_path는 제거하거나 다른 방식으로 접근
+            print(f"✅ Model size: {model_size}")
+        except AttributeError as e:
+            print(f"⚠️  Model info access error: {e}")
     return asr_model
 
 def run_asr(audio_array, config=Config):

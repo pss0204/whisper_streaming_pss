@@ -16,7 +16,7 @@ import argparse
 def main():
     # ASR 모델 초기화
     print("Initializing ASR model...")
-    asr = init_asr("en", "base")
+    asr = init_asr("en", "large-v2")
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--beam_size", type=int, default=Config.beam_size)
@@ -31,8 +31,8 @@ def main():
     print("Loading EuroSpeech dataset...")
     dataset = load_dataset("disco-eth/EuroSpeech", "uk", split="train")
     
-    # 데이터셋 크기 제한 (테스트용으로 처음 5개만 사용)
-    dataset = dataset.select(range(min(5, len(dataset))))
+    
+    dataset = dataset.select(range(min(100, len(dataset))))
     
     print(f"Processing {len(dataset)} samples...")
     
@@ -57,7 +57,7 @@ def main():
             "dataset_size": len(dataset_with_pred),
             "model_info": {
                 "language": "en",
-                "model_size": "base"
+                "model_size": "large-v2"
             }
         },
         "samples": [],
