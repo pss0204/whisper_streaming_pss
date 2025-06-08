@@ -436,8 +436,6 @@ class OpenaiApiASR(ASRBase):
         self.task = "translate"
 
 
-
-
 class HypothesisBuffer:
 
     def __init__(self, logfile=sys.stderr):
@@ -978,18 +976,21 @@ if __name__ == "__main__":
     def output_transcript(o, now=None):
         # output format in stdout is like:
         # 4186.3606 0 1720 Takhle to je
-        # - the first three words are:
-        #    - emission time from beginning of processing, in milliseconds
-        #    - beg and end timestamp of the text segment, as estimated by Whisper model. The timestamps are not accurate, but they're useful anyway
-        # - the next words: segment transcript
         if now is None:
             now = time.time()-start
         if o[0] is not None:
+            # out.txt 기준 레이턴시 계산
+            emission_time = now * 1000  # ms
+            audio_end_time = o[1] * 1000  # ms
+            output_latency = (emission_time - audio_end_time) / 1000  # 초 단위
+            
             print("%1.4f %1.0f %1.0f %s" % (now*1000, o[0]*1000,o[1]*1000,o[2]),file=logfile,flush=True)
             print("%1.4f %1.0f %1.0f %s" % (now*1000, o[0]*1000,o[1]*1000,o[2]),flush=True)
+            
+            # 레이턴시 반환 (적응형 청크 크기 조정용)
+            return output_latency
         else:
-            # No text, so no output
-            pass
+            return None
 
     if args.offline: ## offline mode processing (for testing/debugging)
         a = load_audio(audio_path)
@@ -1057,37 +1058,46 @@ if __name__ == "__main__":
                 logger.error(f"assertion error: {e}")
                 pass
             else:
-                output_transcript(o)
-            
+                # out.txt 기준 레이턴시 사용
+                output_latency = output_transcript(o)
+                if output_latency is not None:
+                    latencies.append(output_latency)
+    
+            # 기존 처리 레이턴시도 계산 (디버깅용)
             now = time.time() - start
-            latency = now - end
-            latencies.append(latency)
+            processing_latency = now - end
             
-            # Adaptive chunk size adjustment (only when option is enabled)
-            if args.adaptive_chunk and len(latencies) > 3:  # Start adjustment after minimum 3 samples
-                avg_recent_latency = np.mean(latencies[-3:])
+            # Adaptive chunk size adjustment (out.txt 레이턴시 기준)
+            if args.adaptive_chunk and len(latencies) > 3:
+                avg_recent_latency = np.mean(latencies[-3:])  # out.txt 레이턴시 평균
                 old_chunk_size = current_chunk_size
                 
                 if avg_recent_latency > target_latency:
-                    # If latency is high, decrease chunk size (process more frequently)
                     current_chunk_size = max(min_chunk_size, 
                                            current_chunk_size * (1 - adaptation_factor))
                 elif avg_recent_latency < target_latency * 0.5:
-                    # If latency is low, increase chunk size (more efficient processing)
                     current_chunk_size = min(max_chunk_size, 
                                            current_chunk_size * (1 + adaptation_factor))
                 
-                # Log output only when chunk size changes
                 if abs(current_chunk_size - old_chunk_size) > 0.01:
                     logger.info(f"Chunk size adjusted: {old_chunk_size:.2f}s -> {current_chunk_size:.2f}s "
-                               f"(avg_latency: {avg_recent_latency:.2f}s, target: {target_latency:.2f}s)")
-            
-            # Adjust log message
+                               f"(output_latency: {avg_recent_latency:.2f}s, target: {target_latency:.2f}s)")
+    
+            # None 체크 추가
             if args.adaptive_chunk:
-                logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, "
-                            f"latency: {latency:.2f}, chunk_size: {current_chunk_size:.2f}")
+                if output_latency is not None:
+                    logger.debug(f"## processed {end:.2f}s, output_latency: {output_latency:.2f}s, "
+                                f"processing_latency: {processing_latency:.2f}s, chunk_size: {current_chunk_size:.2f}s")
+                else:
+                    logger.debug(f"## processed {end:.2f}s, output_latency: N/A, "
+                                f"processing_latency: {processing_latency:.2f}s, chunk_size: {current_chunk_size:.2f}s")
             else:
-                logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, latency: {latency:.2f}")
+                if output_latency is not None:
+                    logger.debug(f"## processed {end:.2f}s, output_latency: {output_latency:.2f}s, "
+                                f"processing_latency: {processing_latency:.2f}s")
+                else:
+                    logger.debug(f"## processed {end:.2f}s, output_latency: N/A, "
+                                f"processing_latency: {processing_latency:.2f}s")
 
             if end >= duration:
                 break
@@ -1098,6 +1108,7 @@ if __name__ == "__main__":
             logger.info(f"\n\n\nAverage latency: {np.mean(latencies):.2f} seconds, "
                        f"\n\n\nFinal chunk size: {current_chunk_size:.2f}s")
             logger.info(f"\n\n\nNumber of chunks over target latency {target_latency:.2f}s: {num_high_latency} ")
+            logger.info(f"\n\n\nFull latency statistics: {latencies}")
 
         else:
             num_high_latency = np.sum(np.array(latencies) > min_chunk)
