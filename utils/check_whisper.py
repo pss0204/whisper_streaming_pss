@@ -2,61 +2,61 @@
 import sys
 
 def check_dependencies():
-    print("=== Whisper Streaming 설치 상태 확인 ===\n")
+    print("=== Whisper Streaming Installation Status Check ===\n")
     
-    # 기본 라이브러리 확인
+    # Check basic libraries
     try:
         import librosa
         import soundfile
-        print("✅ 기본 오디오 라이브러리 (librosa, soundfile) - OK")
+        print("✅ Basic audio libraries (librosa, soundfile) - OK")
     except ImportError as e:
-        print(f"❌ 기본 라이브러리 오류: {e}")
+        print(f"❌ Basic library error: {e}")
     
-    # Faster-Whisper 확인
+    # Faster-Whisper check
     try:
         from faster_whisper import WhisperModel
-        print("✅ Faster-Whisper - 설치됨")
+        print("✅ Faster-Whisper - Installed")
         try:
             model = WhisperModel('tiny', device='cuda')
-            print("  🚀 GPU 사용 가능")
+            print("  🚀 GPU available")
         except:
-            print("  💻 CPU만 사용 가능")
+            print("  💻 CPU only available")
     except ImportError:
-        print("❌ Faster-Whisper - 미설치")
+        print("❌ Faster-Whisper - Not installed")
     
-    # Whisper-Timestamped 확인
+    # Whisper-Timestamped check
     try:
         import whisper_timestamped
-        print("✅ Whisper-Timestamped - 설치됨")
+        print("✅ Whisper-Timestamped - Installed")
     except ImportError:
-        print("❌ Whisper-Timestamped - 미설치")
+        print("❌ Whisper-Timestamped - Not installed")
     
-    # OpenAI API 확인
+    # OpenAI API check
     try:
         import openai
         import os
         if os.getenv('OPENAI_API_KEY'):
-            print("✅ OpenAI API - 설정됨")
+            print("✅ OpenAI API - Configured")
         else:
-            print("⚠️  OpenAI API - 키 없음")
+            print("⚠️  OpenAI API - No key")
     except ImportError:
-        print("❌ OpenAI API - 미설치")
+        print("❌ OpenAI API - Not installed")
     
-    # MLX Whisper 확인 (Apple Silicon)
+    # MLX Whisper check (Apple Silicon)
     try:
         import mlx_whisper
         import mlx.core as mx
-        print(f"✅ MLX Whisper - 설치됨 (디바이스: {mx.default_device()})")
+        print(f"✅ MLX Whisper - Installed (device: {mx.default_device()})")
     except ImportError:
-        print("❌ MLX Whisper - 미설치")
+        print("❌ MLX Whisper - Not installed")
     
-    # VAC 확인
+    # VAC check
     try:
         import torch
         import torchaudio
-        print("✅ VAC (음성 활동 제어) - 사용 가능")
+        print("✅ VAC (Voice Activity Control) - Available")
     except ImportError:
-        print("❌ VAC - 미설치 (pip install torch torchaudio)")
+        print("❌ VAC - Not installed (pip install torch torchaudio)")
 
 if __name__ == "__main__":
     check_dependencies()

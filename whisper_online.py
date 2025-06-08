@@ -49,7 +49,7 @@ def load_audio_from_dataset(dataset_identifier):
         
         logger.info(f"Loading dataset {repo}, config {config}, split {split}, index {index}")
         dataset = load_dataset(repo, config, split=split)
-        #샘플수 조정
+        # Sample count adjustment
         dataset = dataset.select(range(min(100, len(dataset))))
         sample = dataset[index]
         
@@ -1029,12 +1029,12 @@ if __name__ == "__main__":
     else: # online = simultaneous mode
         latencies = []
         end = 0
-        current_chunk_size = min_chunk  # 초기 청크 사이즈
+        current_chunk_size = min_chunk  # Initial chunk size
         
-        # 적응형 파라미터 (adaptive-chunk 옵션이 켜져있을 때만 사용)
+        # Adaptive parameters (used only when adaptive-chunk option is enabled)
         if args.adaptive_chunk:
             target_latency = args.target_latency
-            min_chunk_size = min_chunk  # min_chunk를 최소값으로 사용
+            min_chunk_size = min_chunk  # Use min_chunk as minimum value
             max_chunk_size = args.max_chunk_size
             adaptation_factor = args.adaptation_factor
             logger.info(f"Adaptive chunk sizing enabled: target_latency={target_latency}s, "
@@ -1063,26 +1063,26 @@ if __name__ == "__main__":
             latency = now - end
             latencies.append(latency)
             
-            # 적응형 청크 사이즈 조정 (옵션이 켜져있을 때만)
-            if args.adaptive_chunk and len(latencies) > 3:  # 최소 3개 샘플 후 조정 시작
+            # Adaptive chunk size adjustment (only when option is enabled)
+            if args.adaptive_chunk and len(latencies) > 3:  # Start adjustment after minimum 3 samples
                 avg_recent_latency = np.mean(latencies[-3:])
                 old_chunk_size = current_chunk_size
                 
                 if avg_recent_latency > target_latency:
-                    # 레이턴시가 높으면 청크 사이즈 감소 (더 자주 처리)
+                    # If latency is high, decrease chunk size (process more frequently)
                     current_chunk_size = max(min_chunk_size, 
                                            current_chunk_size * (1 - adaptation_factor))
                 elif avg_recent_latency < target_latency * 0.5:
-                    # 레이턴시가 낮으면 청크 사이즈 증가 (더 효율적 처리)
+                    # If latency is low, increase chunk size (more efficient processing)
                     current_chunk_size = min(max_chunk_size, 
                                            current_chunk_size * (1 + adaptation_factor))
                 
-                # 청크 사이즈가 변경되었을 때만 로그 출력
+                # Log output only when chunk size changes
                 if abs(current_chunk_size - old_chunk_size) > 0.01:
                     logger.info(f"Chunk size adjusted: {old_chunk_size:.2f}s -> {current_chunk_size:.2f}s "
                                f"(avg_latency: {avg_recent_latency:.2f}s, target: {target_latency:.2f}s)")
             
-            # 로그 메시지 조정
+            # Adjust log message
             if args.adaptive_chunk:
                 logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, "
                             f"latency: {latency:.2f}, chunk_size: {current_chunk_size:.2f}")
@@ -1094,13 +1094,13 @@ if __name__ == "__main__":
         
         now = None
         if args.adaptive_chunk:
-            num_high_latency = np.count(latencies>target_latency)
+            num_high_latency = np.sum(np.array(latencies) > target_latency)
             logger.info(f"\n\n\nAverage latency: {np.mean(latencies):.2f} seconds, "
                        f"\n\n\nFinal chunk size: {current_chunk_size:.2f}s")
             logger.info(f"\n\n\nNumber of chunks over target latency {target_latency:.2f}s: {num_high_latency} ")
 
         else:
-            num_high_latency = np.count(latencies>min_chunk)
+            num_high_latency = np.sum(np.array(latencies) > min_chunk)
             logger.info(f"\n\n\nAverage latency: {np.mean(latencies):.2f} seconds")
             logger.info(f"\n\n\nNumber of chunks over {min_chunk:.2f}s: {num_high_latency} ")
             logger.info(f"\n\n\nFull latency statistics: {latencies}")
@@ -1108,18 +1108,18 @@ if __name__ == "__main__":
     o = online.finish()
     output_transcript(o, now=now)
 
-# FasterWhisperASR 클래스를 상속받아 beam_size를 변경 가능하게 만들기
+# Inherit FasterWhisperASR class to make beam_size configurable
 class CustomFasterWhisperASR(FasterWhisperASR):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.beam_size = 5  # 기본값
+        self.beam_size = 5  # Default value
     
     def transcribe(self, audio, init_prompt=""):
         segments, info = self.model.transcribe(
             audio, 
             language=self.original_language, 
             initial_prompt=init_prompt, 
-            beam_size=self.beam_size,  # 변경 가능한 값
+            beam_size=self.beam_size,  # Configurable value
             word_timestamps=True, 
             condition_on_previous_text=True, 
             **self.transcribe_kargs

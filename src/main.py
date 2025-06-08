@@ -14,7 +14,7 @@ from src.config import Config
 import argparse
 
 def main():
-    # ASR 모델 초기화
+    # Initialize ASR model
     print("Initializing ASR model...")
     asr = init_asr("en", "large-v2")
 
@@ -27,7 +27,7 @@ def main():
     config.beam_size = args.beam_size
     config.min_chunk_size = args.min_chunk_size
 
-    # EuroSpeech 데이터셋 로드 (UK 설정)
+    # Load EuroSpeech dataset (UK configuration)
     print("Loading EuroSpeech dataset...")
     dataset = load_dataset("disco-eth/EuroSpeech", "uk", split="train")
     
@@ -36,7 +36,7 @@ def main():
     
     print(f"Processing {len(dataset)} samples...")
     
-    # dataset.map을 사용하여 ASR 적용
+    # Apply ASR using dataset.map
     dataset_with_pred = dataset.map(
         process_audio_with_asr,
         desc="Running ASR on audio samples",
@@ -44,13 +44,13 @@ def main():
         load_from_cache_file=False,
     )
     
-    # 데이터셋 정보 출력
+    # Output dataset information
     print(f"\nDataset columns: {dataset_with_pred.column_names}")
     print(f"Dataset size: {len(dataset_with_pred)}")
-    # 결과 출력
+    # Output results
     print("\n=== ASR Results ===")
     
-    # JSON에 저장할 데이터 구조 생성
+    # Create data structure for saving to JSON
     results_data = {
         "metadata": {
             "timestamp": datetime.now().isoformat(),
@@ -64,7 +64,7 @@ def main():
         "summary": {}
     }
     
-    # # 각 샘플 결과를 JSON 데이터에 추가
+    # # Add each sample result to JSON data
     # for i, sample in enumerate(dataset_with_pred):
     #     print(f"\nSample {i+1}:")
     #     print(f"  Ground Truth: {sample['human_transcript']}")
@@ -73,7 +73,7 @@ def main():
     #     print(f"  Latency: {sample['avg_latency']:.2f} seconds")
     #     print(f"  Beam Size: {sample['beam_size']}")
         
-    #     # JSON 데이터에 샘플 정보 추가
+    #     # Add sample information to JSON data
     #     sample_data = {
     #         "sample_id": i + 1,
     #         "ground_truth": sample['human_transcript'],
@@ -84,7 +84,7 @@ def main():
     #     }
     #     results_data["samples"].append(sample_data)
 
-    # 평균값 계산 및 출력
+    # Calculate and output average values
     avg_wer = np.mean([s['whisper_wer'] for s in dataset_with_pred])
     avg_latency = np.mean([s['avg_latency'] for s in dataset_with_pred])
     Beam_sizes = []
@@ -99,7 +99,7 @@ def main():
     print(f" \n\nAvg_wer: {avg_wer:.2f}")
     print(f"\n\n Avg_latency: {avg_latency:.2f} seconds")
     
-    # 요약 정보를 JSON 데이터에 추가
+    # Add summary information to JSON data
     results_data["summary"] = {
         "avg_wer": round(avg_wer, 4),
         "Latency_list": Latencies,
@@ -110,7 +110,7 @@ def main():
         "Beam_size_list": Beam_sizes
     }
     
-    # JSON 파일로 저장
+    # Save to JSON file
     output_dir = "results"
     os.makedirs(output_dir, exist_ok=True)
     
@@ -120,7 +120,7 @@ def main():
     with open(json_filename, 'w', encoding='utf-8') as f:
         json.dump(results_data, f, indent=2, ensure_ascii=False)
     
-    print(f"\n결과가 {json_filename}에 저장되었습니다.")
+    print(f"\nResults saved to {json_filename}.")
 
 if __name__ == "__main__":
     main()

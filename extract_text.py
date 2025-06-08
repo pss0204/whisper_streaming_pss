@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-whisper_online.py 출력에서 텍스트만 추출하는 스크립트
+Script to extract only text from whisper_online.py output
 """
 import sys
 import re
 
 def extract_text_from_output(input_file, output_file):
-    """출력 파일에서 텍스트만 추출"""
+    """Extract only text from output file"""
     
     with open(input_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
@@ -18,30 +18,30 @@ def extract_text_from_output(input_file, output_file):
         if not line:
             continue
             
-        # 패턴: 숫자들 다음에 오는 텍스트 추출
-        # 형식: "timestamp start_ms end_ms text"
-        parts = line.split(' ', 3)  # 최대 4개로 분할
+        # Pattern: Extract text following numbers
+        # Format: "timestamp start_ms end_ms text"
+        parts = line.split(' ', 3)  # Split into maximum 4 parts
         
         if len(parts) >= 4:
-            # 네 번째 부분이 실제 텍스트
+            # Fourth part is the actual text
             text = parts[3].strip()
             if text:
                 extracted_texts.append(text)
     
-    # 텍스트들을 하나로 합치기
+    # Combine texts into one
     full_text = ' '.join(extracted_texts)
     
-    # 결과 저장
+    # Save results
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(full_text)
     
-    print(f"텍스트 추출 완료: {input_file} -> {output_file}")
-    print(f"추출된 텍스트 길이: {len(full_text)} 문자")
+    print(f"Text extraction completed: {input_file} -> {output_file}")
+    print(f"Extracted text length: {len(full_text)} characters")
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("사용법: python extract_text.py input_file output_file")
-        print("예시: python extract_text.py out.txt clean_output.txt")
+        print("Usage: python extract_text.py input_file output_file")
+        print("Example: python extract_text.py out.txt clean_output.txt")
         sys.exit(1)
     
     input_file = sys.argv[1]

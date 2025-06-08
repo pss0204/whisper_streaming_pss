@@ -1,4 +1,4 @@
-# Whisper Streaming - Complete Guide to All Adjustable Parameters
+# Whisper Streaming - Complete Guide to All Configurable Parameters
 
 ## 1. Core Model Configuration Parameters
 
@@ -9,13 +9,13 @@
 - **Default**: `large-v2`
 - **Description**: Size and version of Whisper model to use
 - **Performance vs Speed Trade-off**:
-  - `tiny` (39MB): Fastest, lowest quality
+  - `tiny` (39MB): Fastest, low quality
   - `base` (74MB): Fast, basic quality
   - `small` (244MB): Medium speed, good quality
   - `medium` (769MB): Slow, very good quality
-  - `large-v3` (1550MB): Slowest, best quality
+  - `large-v3` (1550MB): Slowest, highest quality
   - `large-v3-turbo`: Latest version, 8x faster than large-v3
-- **Language-specific models**: `.en` suffix for English-only models (better performance on English)
+- **Language-specific models**: `.en` suffix are English-only models (better performance for English)
 
 ### 1.2 Backend Selection (`--backend`)
 ```bash
@@ -26,7 +26,7 @@
   - `faster-whisper`: Fastest (requires GPU), CUDA support
   - `whisper_timestamped`: Medium speed, easy GPU installation
   - `mlx-whisper`: Apple Silicon optimized (M1, M2, etc.)
-  - `openai-api`: Cloud-based, no GPU required, costs money
+  - `openai-api`: Cloud-based, no GPU required, costs incurred
 
 ### 1.3 Language Setting (`--lan`, `--language`)
 ```bash
@@ -56,9 +56,9 @@
 - **Impact**: 
   - Smaller: Lower latency, higher CPU usage
   - Larger: Higher latency, lower CPU usage, more accurate transcription
-- **Recommended values**: 
-  - Real-time focused: `0.5-1.0` seconds
-  - Quality focused: `2.0-3.0` seconds
+- **Recommended Values**: 
+  - Real-time priority: `0.5-1.0` seconds
+  - Quality priority: `2.0-3.0` seconds
 
 ### 2.2 Buffer Trimming Method (`--buffer_trimming`)
 ```bash
@@ -66,7 +66,7 @@
 ```
 - **Default**: `segment`
 - **segment**: Trim by segments returned by Whisper
-- **sentence**: Trim by sentences based on punctuation (requires sentence segmenter)
+- **sentence**: Trim by sentence units based on punctuation (requires sentence splitter)
 
 ### 2.3 Buffer Trimming Threshold (`--buffer_trimming_sec`)
 ```bash
@@ -85,7 +85,7 @@
 --vad
 ```
 - **Default**: `False`
-- **Description**: Use Whisper's built-in Voice Activity Detection
+- **Description**: Use Whisper built-in Voice Activity Detection
 - **Benefits**: Remove silent sections, improve processing efficiency
 
 ### 3.2 VAC Activation (`--vac`)
@@ -95,7 +95,7 @@
 - **Default**: `False`
 - **Description**: Use Voice Activity Controller (based on Silero VAD)
 - **Benefits**: More accurate voice detection, real-time processing optimization
-- **Requirements**: Requires `torch`, `torchaudio`
+- **Requirements**: `torch`, `torchaudio` required
 
 ### 3.3 VAC Chunk Size (`--vac-chunk-size`)
 ```bash
@@ -103,9 +103,9 @@
 ```
 - **Default**: `0.04` (seconds)
 - **Description**: Audio chunk size for VAC analysis
-- **Impact**: Smaller values provide more sensitive voice detection
+- **Impact**: Smaller values enable more sensitive voice detection
 
-## 4. Silero VAD Detailed Parameters (Code Level)
+## 4. Detailed Silero VAD Parameters (Code Level)
 
 ### 4.1 Voice Detection Threshold
 ```python
@@ -119,14 +119,14 @@ threshold: float = 0.5
 ```python
 min_silence_duration_ms: int = 500
 ```
-- **Description**: Minimum silence time to determine end of speech (milliseconds)
+- **Description**: Minimum silence time to determine voice end (milliseconds)
 - **Impact**: Shorter = faster response, Longer = more stable
 
-### 4.3 Voice Padding
+### 4.3 Speech Padding
 ```python
 speech_pad_ms: int = 100
 ```
-- **Description**: Padding time to add before and after voice chunks (milliseconds)
+- **Description**: Padding time to add before and after speech chunks (milliseconds)
 - **Purpose**: Prevent loss of speech start/end portions
 
 ## 5. Decoding Strategy Parameters
@@ -140,7 +140,7 @@ condition_on_previous_text=True # Conditional generation on previous text
 ```
 
 #### Beam Search Size Adjustment
-- **beam_size=1**: Fastest, lowest quality (greedy decoding)
+- **beam_size=1**: Fastest, low quality (greedy decoding)
 - **beam_size=5**: Default, balance of speed and quality
 - **beam_size=10**: Slow, high quality
 
@@ -156,8 +156,8 @@ compute_type="int8"
 ```
 
 #### Computing Type Selection
-- **float16**: Best quality, uses more GPU memory
-- **int8_float16**: Medium quality, saves memory
+- **float16**: Highest quality, uses more GPU memory
+- **int8_float16**: Medium quality, memory saving
 - **int8**: For CPU, slowest
 
 ## 6. Model Cache and Loading Parameters
@@ -173,7 +173,7 @@ compute_type="int8"
 ```bash
 --model_dir PATH
 ```
-- **Description**: User-defined model path
+- **Description**: Custom model path
 - **Priority**: Takes precedence over `--model` and `--model_cache_dir`
 
 ## 7. Server Mode Parameters
@@ -210,7 +210,7 @@ compute_type="int8"
 # Inside prompt() function in whisper_online.py
 l < 200  # 200 characters prompt size
 ```
-- **Description**: Maximum length of prompt to take from previous text
+- **Description**: Maximum length of prompt from previous text
 - **Impact**: Longer = better context, increased processing time
 
 ### 9.2 no_speech_prob Threshold
@@ -219,7 +219,7 @@ l < 200  # 200 characters prompt size
 if segment.no_speech_prob > 0.9:
     continue  # Ignore this segment
 ```
-- **Description**: Probability threshold for determining non-speech
+- **Description**: Probability threshold for non-speech detection
 - **Adjustment**: Higher = more strict filtering
 
 ### 9.3 Sampling Rate (Fixed Value)
@@ -229,9 +229,9 @@ SAMPLING_RATE = 16000  # Hz
 - **Description**: All audio is resampled to 16kHz
 - **Whisper Requirement**: Fixed at 16kHz
 
-## 10. Real Usage Examples
+## 10. Practical Usage Examples
 
-### 10.1 Real-time Focused Configuration
+### 10.1 Real-time Priority Settings
 ```bash
 python whisper_online.py \
     --model tiny \
@@ -243,7 +243,7 @@ python whisper_online.py \
     --buffer_trimming_sec 10
 ```
 
-### 10.2 Quality Focused Configuration
+### 10.2 Quality Priority Settings
 ```bash
 python whisper_online.py \
     --model large-v3 \
@@ -255,7 +255,7 @@ python whisper_online.py \
     --lan ko
 ```
 
-### 10.3 Apple Silicon Optimized Configuration
+### 10.3 Apple Silicon Optimized Settings
 ```bash
 python whisper_online.py \
     --model large-v3-turbo \
@@ -265,7 +265,7 @@ python whisper_online.py \
     --lan auto
 ```
 
-### 10.4 Server Mode Configuration
+### 10.4 Server Mode Settings
 ```bash
 python whisper_online_server.py \
     --host 0.0.0.0 \
@@ -278,22 +278,22 @@ python whisper_online_server.py \
 
 ## 11. Performance Optimization Guidelines
 
-### 11.1 Minimize Latency
+### 11.1 Minimizing Latency
 1. Use small models (`tiny`, `base`)
-2. Use small chunk sizes (`0.5-1.0` seconds)
+2. Small chunk size (`0.5-1.0` seconds)
 3. Enable VAC
 4. Use GPU (faster-whisper)
 
-### 11.2 Maximize Accuracy
+### 11.2 Maximizing Accuracy
 1. Use large models (`large-v3`)
-2. Use large chunk sizes (`2.0-3.0` seconds)
-3. Maintain long buffers (`30` seconds)
-4. Set appropriate language
+2. Large chunk size (`2.0-3.0` seconds)
+3. Maintain long buffer (`30` seconds)
+4. Proper language settings
 
-### 11.3 Minimize Memory Usage
+### 11.3 Minimizing Memory Usage
 1. Use small models
 2. Short buffer trimming (`10-15` seconds)
 3. int8 computing type
 4. Remove silent sections with VAC
 
-Please refer to this guide to adjust parameters according to your specific use case.
+Please refer to this guide to adjust parameters for your specific use case.

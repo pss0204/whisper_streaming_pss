@@ -2,7 +2,7 @@
 # filepath: /home/pss/whisper_streaming/calculate_wer.py
 
 """
-개선된 WER 계산 스크립트
+Improved WER calculation script
 """
 
 import sys
@@ -10,20 +10,20 @@ from jiwer import wer
 import re
 
 def clean_text(text):
-    """텍스트 정리 함수"""
-    # 특수 문자 제거하고 공백 정리
+    """Text cleaning function"""
+    # Remove special characters and clean whitespace
     text = re.sub(r'[^\w\s]', ' ', text)
-    text = ' '.join(text.split())  # 다중 공백을 단일 공백으로
+    text = ' '.join(text.split())  # Convert multiple spaces to single space
     return text.lower().strip()
 
 def calculate_wer_from_files(reference_file, hypothesis_file):
-    """파일에서 WER 계산"""
+    """Calculate WER from files"""
     
-    # 참조 텍스트 읽기
+    # Read reference text
     with open(reference_file, 'r', encoding='utf-8') as f:
         reference = f.read()
     
-    # 가설 텍스트 읽기 (숫자가 섞인 형식에서 텍스트만 추출)
+    # Read hypothesis text (extract text only from format mixed with numbers)
     with open(hypothesis_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
     
@@ -33,7 +33,7 @@ def calculate_wer_from_files(reference_file, hypothesis_file):
         if not line:
             continue
             
-        # 타임스탬프 정보 제거하고 텍스트만 추출
+        # Remove timestamp information and extract text only
         parts = line.split(' ', 3)
         if len(parts) >= 4:
             text = parts[3].strip()
@@ -42,15 +42,15 @@ def calculate_wer_from_files(reference_file, hypothesis_file):
     
     hypothesis = ' '.join(hypothesis_parts)
     
-    # 텍스트 정리
+    # Clean text
     reference_clean = clean_text(reference)
     hypothesis_clean = clean_text(hypothesis)
     
-    print(f"참조 텍스트 (처음 100자): {reference_clean[:100]}...")
-    print(f"가설 텍스트 (처음 100자): {hypothesis_clean[:100]}...")
+    print(f"Reference text (first 100 chars): {reference_clean[:100]}...")
+    print(f"Hypothesis text (first 100 chars): {hypothesis_clean[:100]}...")
     print()
     
-    # WER 계산
+    # Calculate WER
     error_rate = wer(reference_clean, hypothesis_clean)
     
     print(f"Word Error Rate: {error_rate:.4f} ({error_rate*100:.2f}%)")
@@ -59,7 +59,7 @@ def calculate_wer_from_files(reference_file, hypothesis_file):
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("사용법: python calculate_wer_improved.py reference.txt hypothesis.txt")
+        print("Usage: python calculate_wer_improved.py reference.txt hypothesis.txt")
         sys.exit(1)
     
     reference_file = sys.argv[1]
