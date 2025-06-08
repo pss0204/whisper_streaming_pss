@@ -974,20 +974,17 @@ if __name__ == "__main__":
     start = time.time()-beg
 
     def output_transcript(o, now=None):
-        # output format in stdout is like:
-        # 4186.3606 0 1720 Takhle to je
         if now is None:
             now = time.time()-start
         if o[0] is not None:
-            # out.txt 기준 레이턴시 계산
+            # 올바른 레이턴시 계산: 음성 시작부터 출력까지
             emission_time = now * 1000  # ms
-            audio_end_time = o[1] * 1000  # ms
-            output_latency = (emission_time - audio_end_time) / 1000  # 초 단위
+            audio_start_time = o[0] * 1000  # ms (not o[1])
+            output_latency = (emission_time - audio_start_time) / 1000  # 초 단위
             
             print("%1.4f %1.0f %1.0f %s" % (now*1000, o[0]*1000,o[1]*1000,o[2]),file=logfile,flush=True)
             print("%1.4f %1.0f %1.0f %s" % (now*1000, o[0]*1000,o[1]*1000,o[2]),flush=True)
             
-            # 레이턴시 반환 (적응형 청크 크기 조정용)
             return output_latency
         else:
             return None
@@ -1068,29 +1065,33 @@ if __name__ == "__main__":
             processing_latency = now - end
             
             # Adaptive chunk size adjustment (out.txt 레이턴시 기준)
-            if args.adaptive_chunk and len(latencies) > 3:
-                avg_recent_latency = np.mean(latencies[-3:])  # out.txt 레이턴시 평균
+            if args.adaptive_chunk and len(latencies) > 1:  # 3 → 1로 변경
+                # 최근 2개만 사용하여 더 빠른 반응
+                avg_recent_latency = np.mean(latencies[-2:])
                 old_chunk_size = current_chunk_size
                 
-                if avg_recent_latency > target_latency:
-                    current_chunk_size = max(min_chunk_size, 
-                                           current_chunk_size * (1 - adaptation_factor))
-                elif avg_recent_latency < target_latency * 0.5:
-                    current_chunk_size = min(max_chunk_size, 
-                                           current_chunk_size * (1 + adaptation_factor))
-                
-                if abs(current_chunk_size - old_chunk_size) > 0.01:
-                    logger.info(f"Chunk size adjusted: {old_chunk_size:.2f}s -> {current_chunk_size:.2f}s "
-                               f"(output_latency: {avg_recent_latency:.2f}s, target: {target_latency:.2f}s)")
+
+                if output_latency is not None:
+                    # 더 적극적인 조정
+                    if avg_recent_latency > target_latency :
+                        # 감소폭 증가
+                        current_chunk_size = max(min_chunk_size, 
+                                            current_chunk_size * (1 - adaptation_factor * 2))
+                    elif avg_recent_latency < target_latency * 0.7:  # 더 민감하게 증가
+                        current_chunk_size = min(max_chunk_size, 
+                                            current_chunk_size * (1 + adaptation_factor * 1.5))
+                    
+                    if old_chunk_size != current_chunk_size:
+                        logger.info(f"Chunk size adjusted: {old_chunk_size:.2f}s -> {current_chunk_size:.2f}s")
     
             # None 체크 추가
             if args.adaptive_chunk:
                 if output_latency is not None:
-                    logger.debug(f"## processed {end:.2f}s, output_latency: {output_latency:.2f}s, "
-                                f"processing_latency: {processing_latency:.2f}s, chunk_size: {current_chunk_size:.2f}s")
+                    logger.debug(f"\n\n\n## processed {end:.2f}s, output_latency: {output_latency:.2f}s, \n\n"
+                                f"\n\n\nprocessing_latency: {processing_latency:.2f}s, chunk_size: {current_chunk_size:.2f}s\n\n")
                 else:
-                    logger.debug(f"## processed {end:.2f}s, output_latency: N/A, "
-                                f"processing_latency: {processing_latency:.2f}s, chunk_size: {current_chunk_size:.2f}s")
+                    logger.debug(f"\n\n\n## processed {end:.2f}s, output_latency: N/A, "
+                                f"\n\nprocessing_latency: {processing_latency:.2f}s, chunk_size: {current_chunk_size:.2f}s\n\n")
             else:
                 if output_latency is not None:
                     logger.debug(f"## processed {end:.2f}s, output_latency: {output_latency:.2f}s, "
