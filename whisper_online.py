@@ -860,7 +860,10 @@ def add_shared_args(parser):
     parser.add_argument('--buffer_trimming', type=str, default="segment", choices=["sentence", "segment"],help='Buffer trimming strategy -- trim completed sentences marked with punctuation mark and detected by sentence segmenter, or the completed segments returned by Whisper. Sentence segmenter must be installed for "sentence" option.')
     parser.add_argument('--buffer_trimming_sec', type=float, default=15, help='Buffer trimming length threshold in seconds. If buffer length is longer, trimming sentence/segment is triggered.')
     parser.add_argument("-l", "--log-level", dest="log_level", choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], help="Set the log level", default='DEBUG')
-
+    parser.add_argument('--adaptive-chunk', action="store_true", default=False, help='Enable adaptive chunk sizing based on latency.')
+    parser.add_argument('--target-latency', type=float, default=1.0, help='Target latency in seconds for adaptive chunk sizing.')
+    parser.add_argument('--max-chunk-size', type=float, default=5.0, help='Maximum chunk size in seconds for adaptive chunk sizing.')
+    parser.add_argument('--adaptation-factor', type=float, default=0.1, help='Adaptation factor for adjusting chunk size.')
 def asr_factory(args, logfile=sys.stderr):
     """
     Creates and configures an ASR and ASR Online instance based on the specified backend and arguments.
@@ -1023,17 +1026,28 @@ if __name__ == "__main__":
             else:
                 end += min_chunk
         now = duration
-    
-    
     else: # online = simultaneous mode
         latencies = []
         end = 0
+        current_chunk_size = min_chunk  # 초기 청크 사이즈
+        
+        # 적응형 파라미터 (adaptive-chunk 옵션이 켜져있을 때만 사용)
+        if args.adaptive_chunk:
+            target_latency = args.target_latency
+            min_chunk_size = min_chunk  # min_chunk를 최소값으로 사용
+            max_chunk_size = args.max_chunk_size
+            adaptation_factor = args.adaptation_factor
+            logger.info(f"Adaptive chunk sizing enabled: target_latency={target_latency}s, "
+                       f"range=[{min_chunk_size}-{max_chunk_size}]s, factor={adaptation_factor}")
+        else:
+            logger.info(f"Fixed chunk size: {current_chunk_size}s")
+        
         while True:
             now = time.time() - start
-            if now < end+min_chunk:
-                time.sleep(min_chunk+end-now)
+            if now < end + current_chunk_size:
+                time.sleep(current_chunk_size + end - now)
             end = time.time() - start
-            a = load_audio_chunk(audio_path,beg,end)
+            a = load_audio_chunk(audio_path, beg, end)
             beg = end
             online.insert_audio_chunk(a)
 
@@ -1044,16 +1058,52 @@ if __name__ == "__main__":
                 pass
             else:
                 output_transcript(o)
+            
             now = time.time() - start
             latency = now - end
             latencies.append(latency)
-            logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, the latency is {now-end:.2f}")
+            
+            # 적응형 청크 사이즈 조정 (옵션이 켜져있을 때만)
+            if args.adaptive_chunk and len(latencies) > 3:  # 최소 3개 샘플 후 조정 시작
+                avg_recent_latency = np.mean(latencies[-3:])
+                old_chunk_size = current_chunk_size
+                
+                if avg_recent_latency > target_latency:
+                    # 레이턴시가 높으면 청크 사이즈 감소 (더 자주 처리)
+                    current_chunk_size = max(min_chunk_size, 
+                                           current_chunk_size * (1 - adaptation_factor))
+                elif avg_recent_latency < target_latency * 0.5:
+                    # 레이턴시가 낮으면 청크 사이즈 증가 (더 효율적 처리)
+                    current_chunk_size = min(max_chunk_size, 
+                                           current_chunk_size * (1 + adaptation_factor))
+                
+                # 청크 사이즈가 변경되었을 때만 로그 출력
+                if abs(current_chunk_size - old_chunk_size) > 0.01:
+                    logger.info(f"Chunk size adjusted: {old_chunk_size:.2f}s -> {current_chunk_size:.2f}s "
+                               f"(avg_latency: {avg_recent_latency:.2f}s, target: {target_latency:.2f}s)")
+            
+            # 로그 메시지 조정
+            if args.adaptive_chunk:
+                logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, "
+                            f"latency: {latency:.2f}, chunk_size: {current_chunk_size:.2f}")
+            else:
+                logger.debug(f"## last processed {end:.2f} s, now is {now:.2f}, latency: {latency:.2f}")
 
             if end >= duration:
                 break
+        
         now = None
-        np.mean(latencies)
-        logger.info(f"Average latency: {np.mean(latencies):.2f} seconds")
+        if args.adaptive_chunk:
+            num_high_latency = np.count(latencies>target_latency)
+            logger.info(f"\n\n\nAverage latency: {np.mean(latencies):.2f} seconds, "
+                       f"\n\n\nFinal chunk size: {current_chunk_size:.2f}s")
+            logger.info(f"\n\n\nNumber of chunks over target latency {target_latency:.2f}s: {num_high_latency} ")
+
+        else:
+            num_high_latency = np.count(latencies>min_chunk)
+            logger.info(f"\n\n\nAverage latency: {np.mean(latencies):.2f} seconds")
+            logger.info(f"\n\n\nNumber of chunks over {min_chunk:.2f}s: {num_high_latency} ")
+            logger.info(f"\n\n\nFull latency statistics: {latencies}")
 
     o = online.finish()
     output_transcript(o, now=now)
