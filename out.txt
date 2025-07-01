@@ -1,1007 +1,117 @@
-2601.9773 0 2300  Transcription by ESO. Translation by —
-4736.1944 2840 4380  Transcription by ESO. Translation by —
-7565.5637 5380 5800  Thanks for
-7791.9087 5800 5820  watching.
-8247.0944 5760 5780  watching!
-8799.3417 5940 6180  Transcription by ESO. Translation by —
-9351.5563 6140 6340  Transcription by ESO. Translation by —
-10191.1442 7900 8120  Transcription by ESO. Translation by —
-16441.2620 14800 15100  Transcription by ESO. Translation by —
-
-
-INFO    Audio duration is: 349.62 seconds
-INFO    Loading Whisper large-v2 model for en...
-INFO    done. It took 4.58 seconds.
-INFO    Adaptive chunk sizing enabled: target_latency=5.0s, range=[0.1-3.0]s, factor=0.1
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 0.10 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 0.10
-DEBUG
-
-
-## processed 0.10s, output_latency: N/A, 
-
-processing_latency: 0.21s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 0.31 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 0.31
-DEBUG
-
-
-## processed 0.31s, output_latency: N/A, 
-
-processing_latency: 0.17s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 0.49 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 0.49
-DEBUG
-
-
-## processed 0.49s, output_latency: N/A, 
-
-processing_latency: 0.17s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 0.66 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 0.66
-DEBUG
-
-
-## processed 0.66s, output_latency: N/A, 
-
-processing_latency: 0.23s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 0.89 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 0.89
-DEBUG
-
-
-## processed 0.89s, output_latency: N/A, 
-
-processing_latency: 0.20s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 1.09 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 1.09
-DEBUG
-
-
-## processed 1.09s, output_latency: N/A, 
-
-processing_latency: 0.21s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 1.30 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 1.30
-DEBUG
-
-
-## processed 1.30s, output_latency: N/A, 
-
-processing_latency: 0.19s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 1.49 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 1.49
-DEBUG
-
-
-## processed 1.49s, output_latency: N/A, 
-
-processing_latency: 0.19s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 1.67 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 1.67
-DEBUG
-
-
-## processed 1.67s, output_latency: N/A, 
-
-processing_latency: 0.18s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 1.85 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(0.0), np.float64(0.5), ' ♪')
-DEBUG   len of buffer now: 1.85
-DEBUG
-
-
-## processed 1.85s, output_latency: N/A, 
-
-processing_latency: 0.21s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 2.06 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(0.0), np.float64(2.02), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 2.06
-DEBUG
-
-
-## processed 2.06s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT: 
-DEBUG   transcribing 2.33 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(0.0), np.float64(2.3), ' Transcription by ESO. Translation by —')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 2.33
-2601.9773 0 2300  Transcription by ESO. Translation by —
-DEBUG
-
-
-## processed 2.33s, output_latency: 2.60s, 
-
-
-
-
-processing_latency: 0.27s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 2.60 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(2.58), np.float64(2.58), ' by') (np.float64(2.58), np.float64(2.58), ' ESO.') (np.float64(2.58), np.float64(2.58), ' Translation') (np.float64(2.58), np.float64(2.58), ' by') (np.float64(2.58), np.float64(2.58), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 2.60
-DEBUG
-
-
-## processed 2.60s, output_latency: N/A, 
-
-processing_latency: 0.27s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 2.87 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(2.84), np.float64(2.84), ' by') (np.float64(2.84), np.float64(2.84), ' ESO.') (np.float64(2.84), np.float64(2.84), ' Translation') (np.float64(2.84), np.float64(2.84), ' by') (np.float64(2.84), np.float64(2.84), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 2.87
-DEBUG
-
-
-## processed 2.87s, output_latency: N/A, 
-
-processing_latency: 0.27s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 3.14 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(3.1), np.float64(3.1), ' by') (np.float64(3.1), np.float64(3.1), ' ESO.') (np.float64(3.1), np.float64(3.1), ' Translation') (np.float64(3.1), np.float64(3.1), ' by') (np.float64(3.1), np.float64(3.1), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 3.14
-DEBUG
-
-
-## processed 3.14s, output_latency: N/A, 
-
-processing_latency: 0.27s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 3.40 seconds from 0.00
-DEBUG   removing last 1 words: (np.float64(3.02), np.float64(3.02), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 3.40
-DEBUG
-
-
-## processed 3.40s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 3.69 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(2.34), np.float64(2.54), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 3.69
-DEBUG
-
-
-## processed 3.69s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 3.96 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(2.22), np.float64(2.24), ' watching!')
-DEBUG   len of buffer now: 3.96
-DEBUG
-
-
-## processed 3.96s, output_latency: N/A, 
-
-processing_latency: 0.22s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 4.18 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(2.86), np.float64(3.28), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 4.18
-DEBUG
-
-
-## processed 4.18s, output_latency: N/A, 
-
-processing_latency: 0.27s, chunk_size: 0.10s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by —
-DEBUG   transcribing 4.46 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(2.8400000000000003), np.float64(4.38), ' Transcription by ESO. Translation by —')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 4.46
-4736.1944 2840 4380  Transcription by ESO. Translation by —
-INFO    Chunk size adjusted: 0.10s -> 0.11s
-DEBUG
-
-
-## processed 4.46s, output_latency: 1.90s, 
-
-
-
-
-processing_latency: 0.28s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 4.74 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 4.74
-DEBUG
-
-
-## processed 4.74s, output_latency: N/A, 
-
-processing_latency: 0.20s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 4.94 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 4.94
-DEBUG
-
-
-## processed 4.94s, output_latency: N/A, 
-
-processing_latency: 0.22s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 5.16 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(4.42), np.float64(4.66), ' for watching.')
-DEBUG   len of buffer now: 5.16
-DEBUG
-
-
-## processed 5.16s, output_latency: N/A, 
-
-processing_latency: 0.22s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 5.38 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 5.38
-DEBUG
-
-
-## processed 5.38s, output_latency: N/A, 
-
-processing_latency: 0.20s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 5.59 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(4.42), np.float64(4.66), ' for watching!')
-DEBUG   len of buffer now: 5.59
-DEBUG
-
-
-## processed 5.59s, output_latency: N/A, 
-
-processing_latency: 0.22s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 5.81 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 5.81
-DEBUG
-
-
-## processed 5.81s, output_latency: N/A, 
-
-processing_latency: 0.21s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 6.02 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(4.42), np.float64(4.68), ' for watching!')
-DEBUG   len of buffer now: 6.02
-DEBUG
-
-
-## processed 6.02s, output_latency: N/A, 
-
-processing_latency: 0.23s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 6.24 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 6.24
-DEBUG
-
-
-## processed 6.24s, output_latency: N/A, 
-
-processing_latency: 0.21s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 6.45 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(4.44), np.float64(4.68), ' for watching!')
-DEBUG   len of buffer now: 6.45
-DEBUG
-
-
-## processed 6.45s, output_latency: N/A, 
-
-processing_latency: 0.23s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 6.68 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 6.68
-DEBUG
-
-
-## processed 6.68s, output_latency: N/A, 
-
-processing_latency: 0.21s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 6.89 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(4.44), np.float64(4.68), ' for watching!')
-DEBUG   len of buffer now: 6.89
-DEBUG
-
-
-## processed 6.89s, output_latency: N/A, 
-
-processing_latency: 0.23s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 7.11 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(5.379999999999999), np.float64(5.82), ' Thanks for watching!')
-DEBUG   len of buffer now: 7.11
-DEBUG
-
-
-## processed 7.11s, output_latency: N/A, 
-
-processing_latency: 0.23s, chunk_size: 0.11s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 7.34 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(5.379999999999999), np.float64(5.8), ' Thanks for')
-DEBUG   INCOMPLETE: (np.float64(5.8), np.float64(5.82), ' watching.')
-DEBUG   len of buffer now: 7.34
-7565.5637 5380 5800  Thanks for
-INFO    Chunk size adjusted: 0.11s -> 0.13s
-DEBUG
-
-
-## processed 7.34s, output_latency: 2.19s, 
-
-
-
-
-processing_latency: 0.23s, chunk_size: 0.13s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for
-DEBUG   transcribing 7.57 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(5.8), np.float64(5.82), ' watching.')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 7.57
-7791.9087 5800 5820  watching.
-INFO    Chunk size adjusted: 0.13s -> 0.15s
-DEBUG
-
-
-## processed 7.57s, output_latency: 1.99s, 
-
-
-
-
-processing_latency: 0.23s, chunk_size: 0.15s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching.
-DEBUG   transcribing 7.79 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(5.76), np.float64(5.78), ' watching!')
-DEBUG   len of buffer now: 7.79
-DEBUG
-
-
-## processed 7.79s, output_latency: N/A, 
-
-processing_latency: 0.23s, chunk_size: 0.15s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching.
-DEBUG   transcribing 8.02 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(5.76), np.float64(5.78), ' watching!')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 8.02
-8247.0944 5760 5780  watching!
-INFO    Chunk size adjusted: 0.15s -> 0.17s
-DEBUG
-
-
-## processed 8.02s, output_latency: 2.49s, 
-
-
-
-
-processing_latency: 0.23s, chunk_size: 0.17s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching!
-DEBUG   transcribing 8.25 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(5.9399999999999995), np.float64(6.14), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 8.25
-DEBUG
-
-
-## processed 8.25s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.17s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching!
-DEBUG   transcribing 8.52 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(5.9399999999999995), np.float64(6.18), ' Transcription by ESO. Translation by —')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 8.52
-8799.3417 5940 6180  Transcription by ESO. Translation by —
-INFO    Chunk size adjusted: 0.17s -> 0.20s
-DEBUG
-
-
-## processed 8.52s, output_latency: 2.86s, 
-
-
-
-
-processing_latency: 0.28s, chunk_size: 0.20s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by —
-DEBUG   transcribing 8.80 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(6.139999999999999), np.float64(6.34), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 8.80
-DEBUG
-
-
-## processed 8.80s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.20s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by —
-DEBUG   transcribing 9.08 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(6.139999999999999), np.float64(6.34), ' Transcription by ESO. Translation by —')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 9.08
-9351.5563 6140 6340  Transcription by ESO. Translation by —
-INFO    Chunk size adjusted: 0.20s -> 0.23s
-DEBUG
-
-
-## processed 9.08s, output_latency: 3.21s, 
-
-
-
-
-processing_latency: 0.27s, chunk_size: 0.23s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 9.35 seconds from 0.00
-DEBUG   removing last 3 words: (np.float64(6.28), np.float64(6.32), ' Translation') (np.float64(6.32), np.float64(6.34), ' by') (np.float64(6.34), np.float64(6.36), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 9.35
-DEBUG
-
-
-## processed 9.35s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.23s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 9.63 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(6.9399999999999995), np.float64(7.24), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 9.63
-DEBUG
-
-
-## processed 9.63s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.23s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 9.92 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(7.900000000000002), np.float64(8.12), ' Transcription by ESO. Translation by —')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 9.92
-10191.1442 7900 8120  Transcription by ESO. Translation by —
-INFO    Chunk size adjusted: 0.23s -> 0.27s
-DEBUG
-
-
-## processed 9.92s, output_latency: 2.29s, 
-
-
-
-
-processing_latency: 0.27s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 10.19 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(8.04), np.float64(8.06), ' by') (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 10.19
-DEBUG
-
-
-## processed 10.19s, output_latency: N/A, 
-
-processing_latency: 0.27s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 10.46 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 10.46
-DEBUG
-
-
-## processed 10.46s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 10.74 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(8.04), np.float64(8.12), ' ESO. Translated by —')
-DEBUG   len of buffer now: 10.74
-DEBUG
-
-
-## processed 10.74s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 11.02 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(8.04), np.float64(8.12), ' by ESO. Translated by —')
-DEBUG   len of buffer now: 11.02
-DEBUG
-
-
-## processed 11.02s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 11.30 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 11.30
-DEBUG
-
-
-## processed 11.30s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 11.58 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(8.04), np.float64(8.04), ' by') (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 11.58
-DEBUG
-
-
-## processed 11.58s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 11.86 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(8.04), np.float64(8.04), ' by') (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 11.86
-DEBUG
-
-
-## processed 11.86s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 12.15 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(8.04), np.float64(8.04), ' by') (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 12.15
-DEBUG
-
-
-## processed 12.15s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 12.43 seconds from 0.00
-DEBUG   removing last 5 words: (np.float64(8.04), np.float64(8.04), ' by') (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 12.43
-DEBUG
-
-
-## processed 12.43s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 12.72 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 12.72
-DEBUG
-
-
-## processed 12.72s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 13.01 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.04), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 13.01
-DEBUG
-
-
-## processed 13.01s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 13.29 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 13.29
-DEBUG
-
-
-## processed 13.29s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 13.58 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 13.58
-DEBUG
-
-
-## processed 13.58s, output_latency: N/A, 
-
-processing_latency: 0.28s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 13.86 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 13.86
-DEBUG
-
-
-## processed 13.86s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 14.15 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 14.15
-DEBUG
-
-
-## processed 14.15s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 14.43 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 14.43
-DEBUG
-
-
-## processed 14.43s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 14.72 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 14.72
-DEBUG
-
-
-## processed 14.72s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 15.01 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 15.01
-DEBUG
-
-
-## processed 15.01s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 15.29 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 15.29
-DEBUG
-
-
-## processed 15.29s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 15.58 seconds from 0.00
-DEBUG   removing last 4 words: (np.float64(8.06), np.float64(8.12), ' ESO.') (np.float64(8.12), np.float64(8.12), ' Translation') (np.float64(8.12), np.float64(8.12), ' by') (np.float64(8.12), np.float64(8.12), ' —')
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 15.58
-DEBUG
-
-
-## processed 15.58s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 15.87 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (None, None, '')
-DEBUG   INCOMPLETE: (np.float64(14.780000000000003), np.float64(15.08), ' Transcription by ESO. Translation by —')
-DEBUG   len of buffer now: 15.87
-DEBUG
-
-
-## processed 15.87s, output_latency: N/A, 
-
-processing_latency: 0.29s, chunk_size: 0.27s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 16.15 seconds from 0.00
-DEBUG   >>>>COMPLETE NOW: (np.float64(14.800000000000004), np.float64(15.1), ' Transcription by ESO. Translation by —')
-DEBUG   INCOMPLETE: (None, None, '')
-DEBUG   len of buffer now: 16.15
-16441.2620 14800 15100  Transcription by ESO. Translation by —
-INFO    Chunk size adjusted: 0.27s -> 0.31s
-DEBUG
-
-
-## processed 16.15s, output_latency: 1.64s, 
-
-
-
-
-processing_latency: 0.29s, chunk_size: 0.31s
-
-
-DEBUG   PROMPT: 
-DEBUG   CONTEXT:  Transcription by ESO. Translation by — Transcription by ESO. Translation by — Thanks for watching. watching! Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by — Transcription by ESO. Translation by —
-DEBUG   transcribing 16.46 seconds from 0.00
-^CTraceback (most recent call last):
-  File "/home/pss/whisper_streaming/whisper_online.py", line 1053, in <module>
-    o = online.process_iter()
-  File "/home/pss/whisper_streaming/whisper_online.py", line 567, in process_iter
-    res = self.asr.transcribe(self.audio_buffer, init_prompt=prompt)
-  File "/home/pss/whisper_streaming/whisper_online.py", line 218, in transcribe
-    return list(segments)
-  File "/home/pss/anaconda3/envs/ws/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 1171, in generate_segments
-    ) = self.generate_with_fallback(encoder_output, prompt, tokenizer, options)
-  File "/home/pss/anaconda3/envs/ws/lib/python3.10/site-packages/faster_whisper/transcribe.py", line 1404, in generate_with_fallback
-    result = self.model.generate(
-KeyboardInterrupt
-
+6235.4259 4200 4680  Thanks for watching!
+12305.1925 6640 8120  Transcription by ESO. Translation by —
+18317.1310 15080 15380  Transcription by ESO. Translation by —
+24508.5328 19700 20680  What's in the box?
+26868.6049 22260 23920  Whatever it is, it must be
+35813.4716 23920 24580  pretty important
+36708.2272 24580 29360  because I've traveled with it, moved it from apartment to apartment
+38146.8217 29360 30340  to apartment.
+40216.7664 35840 36680  Sound familiar?
+42275.4138 38940 39860  Did you know that
+44351.4030 39840 41120  we Americans have
+46432.2126 41140 44380  about three times the amount of space we did 50 years ago?
+48418.4189 44980 46080  Three times.
+52648.4079 47260 49940  So you'd think with all this extra space,
+54736.9885 50580 51820  we'd have plenty of room for all
+56978.8702 51820 53880  our stuff, right? Nope.
+60395.2425 55520 57000  There's a new industry in town, a
+62483.5281 57000 60000  $22 billion, 2.2 billion square foot
+66677.9447 60000 63580  industry without a personal storage. So we've got
+68632.0128 63580 65560  triple the space, but we've become
+70729.2097 65540 66280  such good
+73021.9910 66280 69500  shoppers that we need even more space.
+74999.7897 70280 71540  So where does this lead?
+85090.6649 72420 73400  Lots of credit card
+86664.3004 73400 75860  debt, huge environmental
+87880.6186 75900 84860  footprints, and perhaps not coincidentally, our happiness levels flatline over the same 50 years. Well, I'm here to suggest there's a better
+89962.3713 84860 87580  way, that less might actually equal more.
+92066.4661 88460 89240  I bet most of
+94050.1969 89240 90940  us have experienced at some point the
+100367.0249 90940 96300  joys of less. College, your dorm,
+103593.7390 97360 98960  traveling in a hotel room,
+107881.2304 99780 104820  camping, where you got basically nothing, maybe a boat. Whatever it was for you,
+109833.0717 105180 107120  I bet that among other things, this
+111887.6321 107120 107760  gave you a little more
+113993.7711 107760 109900  freedom, a little more time.
+116049.9353 111820 113380  So I want to suggest that
+118360.5525 113400 115140  less stuff and less
+120376.5500 115120 116560  space are going to equal
+122480.1302 116560 119100  smaller footprint. It's actually a great way to save
+125634.3179 119100 122940  give you some money, and it's going to give you a little more ease in your life. So I started a
+127672.0734 122940 124960  project called Life Edited at lifeedited
+129757.5197 124960 126600 .org to further this
+137203.8028 126620 128640  conversation and to find some great
+138206.9817 128640 129560  solutions in this area.
+140288.1768 130420 133500  First up, crowdsourcing my 420
+142281.8131 133500 137200  square foot apartment in Manhattan with partners Mutopo and
+144361.1534 137200 140940  Jivoto.com. I wanted it all. Home office,
+146641.4852 141480 142200  sit down dinner for
+154335.2256 142200 144180  10, room for
+160461.3655 144140 145360  guests, and all my
+162506.4828 145360 159720  kite surfing gear. With over 300 entries from around the world, I got it. My own little jewel box. By buying a space that was 420 square feet instead of 600, immediately I'm saving 200 grand.
+164597.2414 161000 161420  Smaller
+166712.4653 161420 163160  space is going to make for smaller
+168740.5035 163180 165120  utilities, save some more money
+171157.1822 165120 167680  there, but also a smaller footprint.
+178270.0021 167680 175720  investment. And because it's really designed around an edited set of possessions, my favorite stuff, and really designed for me, I'm really excited to
+180364.4073 175720 177920  be there. So how can you
+182470.5083 177920 178460  live little?
+184472.8007 179320 181740  Three main approaches. First of all, you need to
+186588.6176 181740 182600  edit ruthlessly.
+188639.8144 183540 186020  We've got to clear the arteries of our lives.
+192791.1716 186700 188940  That shirt that I haven't worn in
+195122.5102 188940 191180  years, it's time for me to let it go.
+197265.2838 191800 193840  We've got to cut the extraneous out of
+199280.1840 193840 194360  our lives,
+202199.8744 194360 199440  lives, and we've got to learn to stem the inflow. We need to think before we buy.
+206384.3935 200140 203600  ask ourselves, is that really going to make me happier? Truly?
+208437.7856 204700 205800  By all means,
+210565.0833 206000 207300  we should buy and own
+212639.4799 207300 208120  some great
+214700.4528 208120 211320  stuff, but we want stuff that we're going to love for
+216769.0187 211320 213080  years, not just stuff.
+218824.9056 213760 215220  Secondly, our new mantra,
+220968.9517 215960 217260  small is sexy.
+223292.8503 217860 218740  We want space
+225365.3281 218740 221300  efficiency. We want things that are designed for how they're used
+227334.3134 221300 222720  the vast majority of the
+228340.8036 222720 225160  time, not that rare event.
+230625.2620 225900 227940  Why have a six-burner stove when you
+232422.8575 227920 228720  rarely use three?
+243306.5729 229600 230820  So we want things that
+244698.6475 230820 233840  nest, we want things that stack, and we want to
+246567.2755 233840 240760  digitize. You can take paperwork, books, movies, and you can make it disappear. It's magic.
+248892.0088 241380 245380  Finally, we want multifunctional spaces and housewares.
+260223.8894 245360 253900  spaces. A dining table becomes a bed. Same space. A little side table stretches out to
+262186.0886 253920 259340  seat 10. In the winning life-edited scheme in a render here, we combine a moving
+264363.0679 259340 260580  wall with transformer
+266244.0779 260580 263360  furniture to get a lot out of the space. Look
+268352.8767 263360 264100  at the coffee table.
+270666.1544 265340 266560  It grows in height and
+272624.1181 266560 268020  width to seat 10.
+274709.6875 269060 270380  My office folds
+276818.4612 270360 272800  away, easily hidden. My
+278870.2369 272800 275220  bed just pops out of the wall, two fingers.
+279612.9932 276260 276780  Guests,
+281761.3459 277200 279200  move the moving wall, have some
+283744.8175 279200 281240  fold-down guest beds. And of
+285923.3923 281240 282780  course, my own movie theater.
+287945.0133 283780 286020  So I'm not saying that we all need to live in
+290069.2122 286020 287060  420 square
+292117.1379 287060 289220  feet, but consider the benefits of an
+294194.6082 289220 289860  edited life.
+296193.3680 291000 292480  Go from 3,000 to 2
+298453.2828 292480 294960 ,000, from 1,500 to 1,000.
+300473.2549 295660 297660  Most of us, maybe all of us, are
+302904.1412 297660 299420  here pretty happily for a bunch of
+304890.2860 299400 301140  days with a couple bags,
+306954.1178 301440 302900  maybe small space, hotel room.
+320320.4901 303420 314060  So when you go home and you walk through your front door, take a second and ask yourselves, could I do with a little life editing? Would that give me a little more freedom, maybe a little more time?
+322345.6438 317280 318240  What's in the box?
+324477.9408 320200 321420  It doesn't really matter.
+326535.2485 322700 323960  I know I don't need it.
+330711.3166 326260 327100  What's in yours?
+332737.7076 328240 329600  Maybe, just maybe,
+334983.5351 330020 331240  less might equal more.
+337874.8538 331240 335080  more. So let's make room for the good stuff.
+339885.3290 336360 337060  Thank you.

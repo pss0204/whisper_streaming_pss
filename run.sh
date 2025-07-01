@@ -18,26 +18,26 @@
 
 # python whisper_online.py "dataset:disco-eth/EuroSpeech:uk:train:0" --language en --min-chunk-size 0.1 --buffer_trimming sentence > out.txt
 
-# # Basic test
-# python whisper_online.py ted_16k_mono.wav \
-#     --language en \
-#     --min-chunk-size 2.0 \
-#     --buffer_trimming segment \
-#     --buffer_trimming_sec 30 \
-#     > out.txt
-
-
 # Basic test
 python whisper_online.py ted_16k_mono.wav \
     --language en \
-    --min-chunk-size 0.1 \
+    --min-chunk-size 2.0 \
     --buffer_trimming segment \
     --buffer_trimming_sec 30 \
-    --target-latency 5.0 \
-    --max-chunk-size 3.0 \
-    --adaptation-factor 0.1 \
-    --adaptive-chunk  \
     > out.txt
+
+
+# # Basic test
+# python whisper_online.py ted_16k_mono.wav \
+#     --language en \
+#     --min-chunk-size 0.1 \
+#     --buffer_trimming segment \
+#     --buffer_trimming_sec 30 \
+#     --target-latency 5.0 \
+#     --max-chunk-size 3.0 \
+#     --adaptation-factor 0.1 \
+#     --adaptive-chunk  \
+#     > out.txt
 
 
 
